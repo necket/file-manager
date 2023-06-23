@@ -3,7 +3,7 @@ import readline from 'readline';
 import { storage } from './storage.js';
 import { COMMANDS } from './commands.js';
 import { parseUserInput } from './utils.js';
-import { nwd, files } from './commands/index.js';
+import { nwd, files, osInfo } from './commands/index.js';
 import { throwOperationError } from './utils.js';
  
 export class App {
@@ -31,21 +31,21 @@ export class App {
         return files.cp(args);
       case COMMANDS.DELETE:
         return files.rm(args);
+      case COMMANDS.OS:
+        return osInfo(args);
       default:
-        throwOperationError(`unknown command ${command}`)
+        throwOperationError(command ? `unknown command ${command}` : `command wasn't provided`);
     }
   }
 
   onInput = async (userInput) => {
     const { command, args } = parseUserInput(userInput);
-
-    if (command) {
-      try {
-        await this.onCommand(command, args);
-        this.showCurrentDirectory();
-      } catch(error) {
-        console.log(error.message);
-      }
+   
+    try {
+      await this.onCommand(command, args);
+      this.showCurrentDirectory();
+    } catch(error) {
+      console.log(error.message);
     }
   }
 
