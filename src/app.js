@@ -3,7 +3,7 @@ import readline from 'readline';
 import { storage } from './storage.js';
 import { COMMANDS } from './commands.js';
 import { parseUserInput } from './utils.js';
-import { nwd, files, osInfo, zip } from './commands/index.js';
+import { nwd, files, osInfo, zip, calculateHash } from './commands/index.js';
 import { throwOperationError } from './utils.js';
  
 export class App {
@@ -39,6 +39,8 @@ export class App {
         return zip.compress(args);
       case COMMANDS.DECOMPRESS:
         return zip.decompress(args);
+      case COMMANDS.HASH:
+        return calculateHash(args);
       default:
         throwOperationError(`unknown command ${command}`);
     }

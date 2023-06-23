@@ -1,11 +1,11 @@
 export const COMMANDS = {
   EXIT: '.exit',
 
-  // nwd
+  // Navigation & working directory
   UP: 'up',
   CHANGE_DIR: 'cd',
 
-  // file operations
+  // File operations
   LIST: 'ls',
   READ: 'cat',
   ADD: 'add',
@@ -13,9 +13,14 @@ export const COMMANDS = {
   COPY: 'cp',
   MOVE: 'mv',
   DELETE: 'rm',
+
+  // Compress and decompress operations
   COMPRESS: 'compress',
   DECOMPRESS: 'decompress',
 
-  // os
+  // Hash
+  HASH: 'hash',
+
+  // OS
   OS: 'os',
 }
