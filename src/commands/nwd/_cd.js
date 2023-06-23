@@ -1,19 +1,16 @@
 import path from 'path';
 import { storage } from '../../storage.js';
-import { isDirExist } from '../../utils.js';
-import { throwOperationError } from '../../errors.js';
+import { isDirExist, throwOperationError } from '../../utils.js';
 
 export const cd = async ([dirPath]) => {
-  if (!dirPath) {
-    return throwOperationError(`Path wasn't provided`);
-  } 
+  if (!dirPath) throwOperationError(`Path wasn't provided`);
 
-  const resolvedPath = path.resolve(storage.currentDirectory, dirPath);
+  const resolvedPath = storage.resolvePath(dirPath);
   const isValidDir = await isDirExist(resolvedPath);
 
   if (isValidDir) {
     storage.currentDirectory = resolvedPath;
   } else {
-    return throwOperationError(`Invalid path given`);
+    throwOperationError(`Directory with name ${dirPath} doesn't exist`);
   }
 }

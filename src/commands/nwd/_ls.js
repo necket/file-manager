@@ -1,5 +1,4 @@
 import fs from 'fs/promises';
-import path from 'path';
 import { storage } from '../../storage.js';
 import { isFileExist, isDirExist } from '../../utils.js';
 
@@ -12,7 +11,7 @@ export const ls = async () => {
 
   for (let i = 0; i < directoryContents.length; i++) {
     const file = directoryContents[i];
-    const pathToFile = path.resolve(currentDirectory, file);
+    const pathToFile = storage.resolvePath(file);
     const isFile = await isFileExist(pathToFile);
 
     if (isFile) {

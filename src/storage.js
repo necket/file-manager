@@ -1,4 +1,5 @@
 import os from 'os';
+import path from 'path';
 
 const homedir = os.homedir();
 
@@ -13,6 +14,10 @@ class Storage {
 
   set currentDirectory(path) {
     this._currentDirectory = path;
+  }
+
+  resolvePath(rawPath) {
+    return path.resolve(this._currentDirectory, rawPath);
   }
 }
 

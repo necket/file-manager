@@ -2,6 +2,6 @@ import path from 'path';
 import { storage } from '../../storage.js';
 
 export const up = () => {
-  const resolvedPath = path.resolve(storage.currentDirectory, '..');
+  const resolvedPath = storage.resolvePath('..');
   storage.currentDirectory = resolvedPath;
 }

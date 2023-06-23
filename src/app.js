@@ -3,7 +3,8 @@ import readline from 'readline';
 import { storage } from './storage.js';
 import { COMMANDS } from './commands.js';
 import { parseUserInput } from './utils.js';
-import { nwd } from './commands/index.js';
+import { nwd, files } from './commands/index.js';
+import { throwOperationError } from './utils.js';
  
 export class App {
   constructor(args) {
@@ -19,9 +20,19 @@ export class App {
       case COMMANDS.CHANGE_DIR:
         return nwd.cd(args);
       case COMMANDS.LIST:
-        return nwd.ls(args);
+        return nwd.ls();
+      case COMMANDS.READ:
+        return files.cat(args);
+      case COMMANDS.ADD:
+        return files.add(args);
+      case COMMANDS.RENAME:
+        return files.rn(args);
+      case COMMANDS.COPY:
+        return files.cp(args);
+      case COMMANDS.DELETE:
+        return files.rm(args);
       default:
-        break;
+        throwOperationError(`unknown command ${command}`)
     }
   }
 
@@ -39,12 +50,12 @@ export class App {
   }
 
   onExit = () => {
-    console.log(`Thank you for using File Manager, ${this._username}, goodbye! \n`)
+    console.log(`\nThank you for using File Manager, ${this._username}, goodbye!\n`)
     process.exit();
   }
 
   showCurrentDirectory = () => {
-    console.log(`You are currently in ${storage.currentDirectory} \n`)
+    console.log(`\nYou are currently in ${storage.currentDirectory}\n`)
   }
 
   showGreeting = () => {
