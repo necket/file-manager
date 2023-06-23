@@ -36,3 +36,11 @@ export const isFileExist = async (path) => {
 export const throwOperationError = (message = '') => {
   throw new Error(`Operation failed: ${message}\n`);
 }
+
+export const getFileExtension = (filename) => {
+  const parts = filename.split('.');
+  if (parts.length > 1 && parts[parts.length - 1] !== '') {
+    return parts[parts.length - 1];
+  }
+  return '';
+}

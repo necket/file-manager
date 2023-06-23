@@ -39,13 +39,12 @@ const operations = {
   '--architecture': getArch,
 }
 
-const flags = Object.keys(operations);
-
 export const osInfo = (args) => {
-  const isInvalid = args.length > flags.length || args.some((arg) => flags.indexOf(arg) < 0);
-  if (isInvalid) throwOperationError('Invalid input');
-
-  args.forEach((flag) => {
-    operations[flag].call();
-  });
+  try {
+    args.forEach((flag) => {
+      operations[flag].call();
+    });
+  } catch {
+    throwOperationError('Invalid input');
+  }
 }

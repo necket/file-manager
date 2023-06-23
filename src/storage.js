@@ -5,7 +5,7 @@ const homedir = os.homedir();
 
 class Storage {
   constructor() {
-    this._currentDirectory = homedir;
+    this._currentDirectory = '/Users/necket/Desktop/course/assignments/file-manager/'//homedir;
   }
 
   get currentDirectory() {
