@@ -1,9 +1,9 @@
 import { createReadStream, createWriteStream } from 'fs';
 import { createBrotliDecompress } from 'zlib';
 import { pipeline } from 'stream/promises';
-import { join, basename } from 'path';
+import { join, basename, extname } from 'path';
 import { storage } from '../../storage.js';
-import { isFileExist, throwOperationError, getFileExtension } from '../../utils.js';
+import { isFileExist, throwOperationError } from '../../utils.js';
 
 export const decompress = async ([srcPath, distDir]) => {
   if (!srcPath || !distDir) throwOperationError('invalid arguments');
@@ -11,7 +11,7 @@ export const decompress = async ([srcPath, distDir]) => {
   const resolvedDistDir = storage.resolvePath(distDir);
   const srcFilename = basename(resolvedSrcPath);
 
-  if (getFileExtension(srcFilename) !== 'gz') {
+  if (extname(srcFilename) !== '.gz') {
     throwOperationError(`invalid file extention`);
   }
 
